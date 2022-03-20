@@ -36,7 +36,7 @@ workflows:
           xcode-project use-profiles
       - name: Sentry cli
         script: |
-          sentry-cli update
+          brew sentry-cli update
       - name: Flutter build ipa and automatic versioning
         script: |
           flutter build ipa --release \
