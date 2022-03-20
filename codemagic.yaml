@@ -52,29 +52,13 @@ workflows:
       scripts:
          - name: Sentry
            script: |    
-            if which sentry-cli >/dev/null; then
-            export SENTRY_ORG=nevercode-24
-            export SENTRY_PROJECT=flutter
-            export SENTRY_AUTH_TOKEN=13beeb2899ca4e80b545cb4a8dae56b889a19cacf6834b6f8c5540987aedd4f5
-            ERROR=$(sentry-cli upload-dif "$DWARF_DSYM_FOLDER_PATH" 2>&1 >/dev/null)
-            if [ ! $? -eq 0 ]; then
-            echo "warning: sentry-cli - $ERROR"
-            fi
-            else
-            echo "warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases"
-            fi
-           
-             
-           
-           
-           
-#               echo "Find build artifacts"
-#               dsymPath=$(find $CM_BUILD_DIR/build/ios/archive/Runner.xcarchive $CM_BUILD_DIR/build/ios/archive/Runner.xcarchive -name "*.dSYM.zip" | head -1)
-#               if [[ -z ${dsymPath} ]]
-#               then
-#                 echo "No debug symbols were found, skip publishing to Firebase Crashlytics"
-#               else
-#                 echo "Publishing debug symbols from $dsymPath to Firebase Crashlytics"
-#                 ls -d -- ios/Pods/*
-#                 sentry-cli --auth-token 13beeb2899ca4e80b545cb4a8dae56b889a19cacf6834b6f8c5540987aedd4f5 upload-dif --org nevercode-24 --project flutter $dsymPath
-#               fi
+              echo "Find build artifacts"
+              dsymPath=$(find $CM_BUILD_DIR/build/ios/archive/Runner.xcarchive $CM_BUILD_DIR/build/ios/archive/Runner.xcarchive/Runner.app.dSYM/Contents -name "*.dSYM.zip" | head -1)
+              if [[ -z ${dsymPath} ]]
+              then
+                echo "No debug symbols were found, skip publishing to Firebase Crashlytics"
+              else
+                echo "Publishing debug symbols from $dsymPath to Firebase Crashlytics"
+                ls -d -- ios/Pods/*
+                sentry-cli --auth-token 13beeb2899ca4e80b545cb4a8dae56b889a19cacf6834b6f8c5540987aedd4f5 upload-dif --org nevercode-24 --project flutter $dsymPath
+              fi
