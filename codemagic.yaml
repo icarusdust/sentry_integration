@@ -34,6 +34,9 @@ workflows:
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
+      - name: Sentry cli
+        script: |
+          curl -sL https://sentry.io/get-cli/ | bash
       - name: Flutter build ipa and automatic versioning
         script: |
           flutter build ipa --release \
