@@ -53,7 +53,7 @@ workflows:
             npm install -g appcenter-cli
 
             echo "Find build artifacts"
-            ipaPath=build/ios/ipa/*.ipa
+            ipaPath=build/ios/ipa/sentry_integration.ipa
             echo "Found ipa at $ipaPath"
 
             if [[ -z ${ipaPath} ]]
