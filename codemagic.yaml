@@ -53,7 +53,6 @@ workflows:
             npm install -g appcenter-cli
 
             echo "Find build artifacts"
-            ipaPath=build/ios/ipa/sentry_integration.ipa
             echo "Found ipa at $ipaPath"
 
             if [[ -z ${ipaPath} ]]
@@ -63,7 +62,7 @@ workflows:
                 echo "Publishing $ipaPath to App Center"
                 appcenter distribute release \
                     --group Collaborators \
-                    --file "${ipaPath}" \
+                    --file build/ios/ipa/sentry_integration.ipa \
                     --release-notes 'App submission via Codemagic' \
                     --app nihalagazade/com.example.sentryIntegration \
                     --token df84dfdec4301fc5feccdc7a9c6545a93db24d93 \
