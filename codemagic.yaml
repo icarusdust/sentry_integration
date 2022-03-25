@@ -54,23 +54,14 @@ workflows:
           script: |
             echo 'Installing App Center CLI tools'
             npm install -g appcenter-cli
-
-            echo "Find build artifacts"
-            echo "Found ipa at $ipaPath"
-
-            if [[ -z ${ipaPath} ]]
-            then
-                echo "No ipas were found, skip publishing to App Center"
-            else
-                echo "Publishing $ipaPath to App Center"
-                appcenter distribute release \
-                    --group Collaborators \
-                    --file build/ios/ipa/sentry_integration.ipa \
-                    --release-notes 'App submission via Codemagic' \
-                    --app nihalagazade/com.example.sentryIntegration \
-                    --token df84dfdec4301fc5feccdc7a9c6545a93db24d93 \
-                    --quiet
-            fi
+            echo "Publishing $ipaPath to App Center"
+            appcenter distribute release \
+                --group Collaborators \
+                --file build/ios/ipa/sentry_integration.ipa \
+                --release-notes 'App submission via Codemagic' \
+                --app nihalagazade/com.example.sentryIntegration \
+                --token df84dfdec4301fc5feccdc7a9c6545a93db24d93 \
+                --quiet
 
 
 
